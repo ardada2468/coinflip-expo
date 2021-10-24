@@ -6,7 +6,10 @@ import {
   Text,
   View,
 } from 'react-native'
+import * as Haptics from 'expo-haptics';
+  
 import { Button, Title } from 'react-native-paper'
+import CoinFlip from './coinFlip';
 interface Idice {
   current?: number;
   avg?: number;
@@ -32,6 +35,7 @@ class DiceRoll extends Component <Idice>{
   }
 
   onPress = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
     let rand: number = this.getRand(1,7);
     this.x.push(rand);
     this.setState(
@@ -46,16 +50,27 @@ class DiceRoll extends Component <Idice>{
 
 
   getResultStyler(){
-    if(this.state.current == 2){
-      return styles.result1;
-    }else return styles.result2;
+    let x: number = this.state.current;
+    if(x == 1){
+      return styles.r1;
+    }else if(x == 2){
+      return styles.r2;
+    }else if(x == 3){
+      return styles.r3; 
+    }else if(x == 4){
+      return styles.r4;
+    }else if(x == 5){
+      return styles.r5;
+    }else if(x == 6){
+      return styles.r6;
+    }else return styles.r6;
   }
 
  render() {
     return (
       <View style={[styles.container, this.getResultStyler()]}>
         <View>
-          <Text>avarage: {" " + this.state.avg}</Text>
+          <Text>avarage: {" " + this.state.avg.toFixed(2)}</Text>
           <Title style={[this.getResultStyler(), styles.commonResult]}>It is { this.state.current } !</Title>
           <Button onPress={this.onPress} style={styles.button}>
             <Text>Roll Dice</Text>
@@ -73,6 +88,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 30,
+    margin: 10,
+    marginTop:30,
+    borderRadius: 15,
   },
   button: {
     // alignItems: 'center',
@@ -84,12 +103,24 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 5,
   },
-  result1: {
+  r1: {
     backgroundColor: "#B7D1F8",
 
   },
-  result2: {
+  r2: {
     backgroundColor: "#DFD2F4",
+  },
+  r3:{
+    backgroundColor: "#B5EAEA"
+  },
+  r4:{
+    backgroundColor: "#EDF6E5"
+  },
+  r5:{
+    backgroundColor: "#FFBCBC"
+  },
+  r6:{
+    backgroundColor: "#F38BA0"
   },
   commonResult:{
     padding: 10,
