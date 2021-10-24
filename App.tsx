@@ -6,6 +6,10 @@ import {
   View,
 } from 'react-native'
 import { Button, Title } from 'react-native-paper'
+import CoinFlip from './Pages/coinFlip';
+import coinFlip from './Pages/coinFlip';
+import DiceRoll from './Pages/diceRoll';
+import diceRoll from './Pages/diceRoll';
 interface Icoin {
   heads?: number;
   tails?: number;
@@ -61,6 +65,8 @@ class App extends Component <Icoin>{
             <Text>Flip Coin</Text>
           </Button>
         </View>
+        <DiceRoll></DiceRoll>
+        <CoinFlip></CoinFlip>
       </View>
     )
   }

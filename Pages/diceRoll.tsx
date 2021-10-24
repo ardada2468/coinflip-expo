@@ -7,45 +7,46 @@ import {
   View,
 } from 'react-native'
 import { Button, Title } from 'react-native-paper'
-interface Icoin {
-  heads?: number;
-  tails?: number;
-  coin?: String;
+interface Idice {
+  current?: number;
+  avg?: number;
 }
-class diceRoll extends Component <Icoin>{
+class DiceRoll extends Component <Idice>{
   state = {
-    coin: "please filp the coin",
-    heads: 0,
-    tails: 0
+    current: 0,
+    avg: 0
   }
+
+  x: Array<number> = [];
 
    getRand(min: number, max:number) {
     return Math.floor(Math.random() * (max - min) + min);
   }
 
+  calculateAvg(){
+    let total: number = 0;
+    for(let i = 0; i < this.x.length; i++){
+      total+=this.x[i];
+    }
+    return total/this.x.length;
+  }
 
   onPress = () => {
-    let rand: any = this.getRand(1,10);
-    let value: String = "tails"
-    if(rand <= 5){
-      value = "heads"
-      this.setState({
-        heads: this.state.heads+1,
-        coin: value
-      })
-    }else{
-    this.setState({
-      tails: this.state.tails+1,
-      coin: value
-    })
-  }
+    let rand: number = this.getRand(1,7);
+    this.x.push(rand);
+    this.setState(
+      {
+        current: rand,
+        avg: this.calculateAvg()
+      }
+    )
     // console.log({rand,value})
   }
 
 
 
   getResultStyler(){
-    if(this.state.coin == "tails"){
+    if(this.state.current == 2){
       return styles.result1;
     }else return styles.result2;
   }
@@ -53,16 +54,11 @@ class diceRoll extends Component <Icoin>{
  render() {
     return (
       <View style={[styles.container, this.getResultStyler()]}>
-          <Text>"HELLO WORLD"</Text>
-        <Text style={styles.info}># Heads: {" " + this.state.heads}</Text>
-        <Text style={styles.info}># Tails:  { " " + this.state.tails}</Text>
         <View>
-          {/* <Text>
-            It is { this.state.coin } !
-          </Text> */}
-          <Title style={[this.getResultStyler(), styles.commonResult]}>It is { this.state.coin } !</Title>
+          <Text>avarage: {" " + this.state.avg}</Text>
+          <Title style={[this.getResultStyler(), styles.commonResult]}>It is { this.state.current } !</Title>
           <Button onPress={this.onPress} style={styles.button}>
-            <Text>Flip Coin</Text>
+            <Text>Roll Dice</Text>
           </Button>
         </View>
       </View>
@@ -103,4 +99,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default diceRoll;
+export default DiceRoll;

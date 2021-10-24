@@ -7,12 +7,13 @@ import {
   View,
 } from 'react-native'
 import { Button, Title } from 'react-native-paper'
+import { Icon } from 'react-native-paper/lib/typescript/components/Avatar/Avatar';
 interface Icoin {
   heads?: number;
   tails?: number;
   coin?: String;
 }
-class coinFlip extends Component <Icoin>{
+class CoinFlip extends Component <Icoin>{
   state = {
     coin: "please filp the coin",
     heads: 0,
@@ -21,6 +22,12 @@ class coinFlip extends Component <Icoin>{
 
    getRand(min: number, max:number) {
     return Math.floor(Math.random() * (max - min) + min);
+  }
+
+    
+  constructor() {
+  let x:Icoin = {coin: "please filp the coin",heads: 0,tails: 0};
+   super(x)
   }
 
 
@@ -102,4 +109,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default coinFlip;
+export default CoinFlip;
