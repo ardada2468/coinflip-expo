@@ -1,7 +1,12 @@
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
 import React, { Component } from 'react'
 import {StyleSheet,View} from 'react-native'
 import CoinFlip from './Pages/coinFlip';
 import DiceRoll from './Pages/diceRoll';
+import { AntDesign, FontAwesome5 } from '@expo/vector-icons'; 
+import About from './Pages/about';
+
 interface Icoin {
   heads?: number;
   tails?: number;
@@ -46,17 +51,28 @@ class App extends Component{
   //   }else return styles.result2;
   // }
 
+  Tab = createBottomTabNavigator();
+  iconSize = 24;
  render() {
     return (
-      <View style={styles.container}>
-        <View>
-          <DiceRoll></DiceRoll>
-          <CoinFlip></CoinFlip>
-        </View>
-      </View>
+      <NavigationContainer>
+      <this.Tab.Navigator>
+        <this.Tab.Screen name="CoinFlip" component={CoinFlip} options={{tabBarIcon: (tabinfo) => {return(<FontAwesome5 name="coins" size={this.iconSize} color="black" />)}}}/>
+        <this.Tab.Screen name="DiceRoll" component={DiceRoll} options={{tabBarIcon: (tabinfo) => {return(<FontAwesome5 name="dice" size={this.iconSize} color="black" />)}}}/>
+        <this.Tab.Screen name="About" component={About} options={{tabBarIcon: (tabinfo) => {return(<AntDesign name="infocirlce" size={this.iconSize} color="black" />)}}}/>
+
+      </this.Tab.Navigator>
+    </NavigationContainer>
+      // <View style={styles.container}>
+      //   <View>
+      //     <DiceRoll></DiceRoll>
+      //     <CoinFlip></CoinFlip>
+      //   </View>
+      // </View>
     )
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {
