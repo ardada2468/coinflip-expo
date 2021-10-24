@@ -5,19 +5,23 @@ import {
   TouchableOpacity,
   Text,
   View,
+  Platform,
 } from 'react-native'
 import * as Haptics from 'expo-haptics';
   
 import { Button, Title } from 'react-native-paper'
 import CoinFlip from './coinFlip';
+import { FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
 interface Idice {
   current?: number;
   avg?: number;
 }
 class DiceRoll extends Component <Idice>{
+  
   state = {
     current: 0,
-    avg: 0
+    avg: 0,
+    initText: "Tap on the Colored area or Button to roll dice"
   }
 
   x: Array<number> = [];
@@ -35,7 +39,16 @@ class DiceRoll extends Component <Idice>{
   }
 
   onPress = () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
+    if(!(Platform.OS === 'web')){
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
+    }
+    if(!(this.state.initText == "")){
+      this.setState(
+        {
+         initText: ""
+        }
+      )
+    }
     let rand: number = this.getRand(1,7);
     this.x.push(rand);
     this.setState(
@@ -47,6 +60,15 @@ class DiceRoll extends Component <Idice>{
     // console.log({rand,value})
   }
 
+  GetButton(){
+    if(Platform.OS === "web"){
+      return(
+        <Button onPress={this.onPress} style={styles.button}>
+            <Text>Roll Dice</Text>
+        </Button>
+      )
+    }
+  }
 
 
   getResultStyler(){
@@ -66,15 +88,36 @@ class DiceRoll extends Component <Idice>{
     }else return styles.r6;
   }
 
+  
+  getIcon(){
+    let size:number = 100;
+    let color: string = "black"
+    let x: number = this.state.current;
+    if(x == 1){
+      return <MaterialCommunityIcons name="dice-1" size={size} color={color} />
+    }else if(x == 2){
+      return <MaterialCommunityIcons name="dice-2" size={size} color={color}  />
+    }else if(x == 3){
+      return <MaterialCommunityIcons name="dice-3" size={size} color={color}  />
+    }else if(x == 4){
+      return <MaterialCommunityIcons name="dice-4" size={size} color={color} />
+    }else if(x == 5){
+      return <MaterialCommunityIcons name="dice-5" size={size} color={color}  />
+    }else if(x == 6){
+      return <MaterialCommunityIcons name="dice-6" size={size} color={color}  />
+  }else return <FontAwesome5 name="dice-d6" size={size} color={color} />
+}
+
+
  render() {
     return (
-      <View style={[styles.container, this.getResultStyler()]}>
+      <View style={[styles.container, this.getResultStyler()]} onTouchStart={this.onPress}>
         <View>
-          <Text>avarage: {" " + this.state.avg.toFixed(2)}</Text>
-          <Title style={[this.getResultStyler(), styles.commonResult]}>It is { this.state.current } !</Title>
-          <Button onPress={this.onPress} style={styles.button}>
-            <Text>Roll Dice</Text>
-          </Button>
+          <View style={[styles.commonResult]}>
+            {this.getIcon()}
+          </View>
+          {this.GetButton()}
+          <Text>{this.state.initText}</Text>
         </View>
       </View>
     )
@@ -94,38 +137,22 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   button: {
-    // alignItems: 'center',
-    // backgroundColor: '#DDDDDD',
     padding: 10,
     marginTop:10,
   },
-  info: {
-    padding: 10,
-    margin: 5,
-  },
-  r1: {
-    backgroundColor: "#B7D1F8",
-
-  },
-  r2: {
-    backgroundColor: "#DFD2F4",
-  },
-  r3:{
-    backgroundColor: "#B5EAEA"
-  },
-  r4:{
-    backgroundColor: "#EDF6E5"
-  },
-  r5:{
-    backgroundColor: "#FFBCBC"
-  },
-  r6:{
-    backgroundColor: "#F38BA0"
-  },
+  r1: {backgroundColor: "#B7D1F8"},
+  r2: {backgroundColor: "#DFD2F4"},
+  r3:{backgroundColor: "#B5EAEA"},
+  r4:{ backgroundColor: "#EDF6E5"},
+  r5:{backgroundColor: "#FFBCBC"},
+  r6:{backgroundColor: "#F38BA0"},
   commonResult:{
     padding: 10,
     margin:10,
-    borderRadius: 10
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: 'center',
+    alignSelf: 'center',
   }
 
 })

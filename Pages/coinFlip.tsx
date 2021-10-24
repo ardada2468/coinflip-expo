@@ -6,10 +6,12 @@ import {
   Text,
   View,
   Dimensions,
+  Platform,
 } from 'react-native'
 import * as Haptics from 'expo-haptics';
 import { Button, Title } from 'react-native-paper'
 import { Icon } from 'react-native-paper/lib/typescript/components/Avatar/Avatar';
+
 interface Icoin {
   heads?: number;
   tails?: number;
@@ -17,7 +19,7 @@ interface Icoin {
 }
 class CoinFlip extends Component <Icoin>{
   state = {
-    coin: "please filp the coin",
+    coin: "please tap on the colored area or button to flip coin",
     heads: 0,
     tails: 0
   }
@@ -26,19 +28,14 @@ class CoinFlip extends Component <Icoin>{
     return Math.floor(Math.random() * (max - min) + min);
   }
 
-    
-  // constructor() {
-  // let x:Icoin = {coin: "please filp the coin",heads: 0,tails: 0};
-  //  super(x)
-  // }
-
 
   onPress = () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
-    let rand: any = this.getRand(1,10);
-    let value: String = "tails"
+    if(!(Platform.OS === 'web')){
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
+    }    let rand: any = this.getRand(1,10);
+    let value: String = "It is tails!"
     if(rand <= 5){
-      value = "heads"
+      value =  " It is heads!"
       this.setState({
         heads: this.state.heads+1,
         coin: value
@@ -60,16 +57,24 @@ class CoinFlip extends Component <Icoin>{
     }else return styles.result2;
   }
 
+  GetButton(){
+    if(Platform.OS === "web"){
+      return(
+        <Button onPress={this.onPress} style={styles.button}>
+            <Text>Flip Coin</Text>
+        </Button>
+      )
+    }
+  }
+
  render() {
     return (
-      <View style={[styles.container, this.getResultStyler()]}>
+      <View style={[styles.container, this.getResultStyler()]} onTouchStart={this.onPress}>
         <Text style={styles.info}># Heads: {" " + this.state.heads}</Text>
         <Text style={styles.info}># Tails:  { " " + this.state.tails}</Text>
         <View>
-          <Title style={[this.getResultStyler(), styles.commonResult]}>It is { this.state.coin } !</Title>
-          <Button onPress={this.onPress} style={styles.button}>
-            <Text>Flip Coin</Text>
-          </Button>
+          <Title style={[this.getResultStyler(), styles.commonResult]}>{ this.state.coin }</Title>
+          {this.GetButton()}
         </View>
       </View>
     )
@@ -86,13 +91,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 30,
     margin: 10,
+    marginTop:30,
     borderRadius: 15,
-    width: width*.9
-    //
   },
   button: {
-    // alignItems: 'center',
-    // backgroundColor: '#DDDDDD',
     padding: 10,
     marginTop:10,
   },
