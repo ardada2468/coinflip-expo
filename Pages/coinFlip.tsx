@@ -5,7 +5,9 @@ import {
   TouchableOpacity,
   Text,
   View,
+  Dimensions,
 } from 'react-native'
+import * as Haptics from 'expo-haptics';
 import { Button, Title } from 'react-native-paper'
 import { Icon } from 'react-native-paper/lib/typescript/components/Avatar/Avatar';
 interface Icoin {
@@ -25,13 +27,14 @@ class CoinFlip extends Component <Icoin>{
   }
 
     
-  constructor() {
-  let x:Icoin = {coin: "please filp the coin",heads: 0,tails: 0};
-   super(x)
-  }
+  // constructor() {
+  // let x:Icoin = {coin: "please filp the coin",heads: 0,tails: 0};
+  //  super(x)
+  // }
 
 
   onPress = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
     let rand: any = this.getRand(1,10);
     let value: String = "tails"
     if(rand <= 5){
@@ -50,7 +53,7 @@ class CoinFlip extends Component <Icoin>{
   }
 
 
-
+//
   getResultStyler(){
     if(this.state.coin == "tails"){
       return styles.result1;
@@ -63,9 +66,6 @@ class CoinFlip extends Component <Icoin>{
         <Text style={styles.info}># Heads: {" " + this.state.heads}</Text>
         <Text style={styles.info}># Tails:  { " " + this.state.tails}</Text>
         <View>
-          {/* <Text>
-            It is { this.state.coin } !
-          </Text> */}
           <Title style={[this.getResultStyler(), styles.commonResult]}>It is { this.state.coin } !</Title>
           <Button onPress={this.onPress} style={styles.button}>
             <Text>Flip Coin</Text>
@@ -77,12 +77,18 @@ class CoinFlip extends Component <Icoin>{
 }
 
 
+var width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 30,
+    margin: 10,
+    borderRadius: 15,
+    width: width*.9
+    //
   },
   button: {
     // alignItems: 'center',
