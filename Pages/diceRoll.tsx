@@ -1,3 +1,4 @@
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { Component } from 'react'
 import {
   StyleSheet,
@@ -11,21 +12,20 @@ interface Icoin {
   tails?: number;
   coin?: String;
 }
-class App extends Component <Icoin>{
+class diceRoll extends Component <Icoin>{
   state = {
     coin: "please filp the coin",
     heads: 0,
     tails: 0
   }
 
-   getRandomInt(min:number, max:number) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+   getRand(min: number, max:number) {
+    return Math.floor(Math.random() * (max - min) + min);
   }
 
+
   onPress = () => {
-    let rand: any = this.getRandomInt(1,10);
+    let rand: any = this.getRand(1,10);
     let value: String = "tails"
     if(rand <= 5){
       value = "heads"
@@ -53,9 +53,13 @@ class App extends Component <Icoin>{
  render() {
     return (
       <View style={[styles.container, this.getResultStyler()]}>
+          <Text>"HELLO WORLD"</Text>
         <Text style={styles.info}># Heads: {" " + this.state.heads}</Text>
         <Text style={styles.info}># Tails:  { " " + this.state.tails}</Text>
         <View>
+          {/* <Text>
+            It is { this.state.coin } !
+          </Text> */}
           <Title style={[this.getResultStyler(), styles.commonResult]}>It is { this.state.coin } !</Title>
           <Button onPress={this.onPress} style={styles.button}>
             <Text>Flip Coin</Text>
@@ -65,6 +69,8 @@ class App extends Component <Icoin>{
     )
   }
 }
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -97,4 +103,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default App;
+export default diceRoll;
