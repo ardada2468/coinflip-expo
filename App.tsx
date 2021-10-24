@@ -1,15 +1,7 @@
 import React, { Component } from 'react'
-import {
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  View,
-} from 'react-native'
-import { Button, Title } from 'react-native-paper'
+import {StyleSheet,View} from 'react-native'
 import CoinFlip from './Pages/coinFlip';
-import coinFlip from './Pages/coinFlip';
 import DiceRoll from './Pages/diceRoll';
-import diceRoll from './Pages/diceRoll';
 interface Icoin {
   heads?: number;
   tails?: number;
