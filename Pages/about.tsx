@@ -1,11 +1,8 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { Component } from 'react'
 import {
   StyleSheet,
-  TouchableOpacity,
   Text,
   View,
-  Platform,
   Linking,
 } from 'react-native'
   

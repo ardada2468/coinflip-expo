@@ -1,16 +1,8 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { Component } from 'react'
-import {
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  View,
-  Platform,
-} from 'react-native'
+import {StyleSheet, Text, View, Platform} from 'react-native'
 import * as Haptics from 'expo-haptics';
-  
 import { Button, Title } from 'react-native-paper'
-import CoinFlip from './coinFlip';
 import { FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
 interface Idice {
   current?: number;
@@ -54,22 +46,11 @@ class DiceRoll extends Component <Idice>{
     this.setState(
       {
         current: rand,
-        avg: this.calculateAvg()
+        avg: this.calculateAvg(),
       }
     )
     // console.log({rand,value})
   }
-
-  GetButton(){
-    if(Platform.OS === "web"){
-      return(
-        <Button onPress={this.onPress} style={styles.button}>
-            <Text>Roll Dice</Text>
-        </Button>
-      )
-    }
-  }
-
 
   getResultStyler(){
     let x: number = this.state.current;
@@ -108,17 +89,28 @@ class DiceRoll extends Component <Idice>{
   }else return <FontAwesome5 name="dice-d6" size={size} color={color} />
 }
 
+GetButton(){
+  if(Platform.OS === "web"){
+    return(
+      <Button onPress={this.onPress} style={styles.button}>
+          <Text>Roll Dice</Text>
+      </Button>
+    )
+  }
+}
 
+//Render Method
  render() {
     return (
-      <View style={[styles.container, this.getResultStyler()]} onTouchStart={this.onPress}>
+      <View style={[styles.container, this.getResultStyler()]} onTouchEnd={this.onPress}>
         <View>
           <View style={[styles.commonResult]}>
             {this.getIcon()}
           </View>
-          {this.GetButton()}
+          <Title style={styles.title}>{this.state.current}</Title>
           <Text>{this.state.initText}</Text>
-        </View>
+          {this.GetButton()}
+          </View>
       </View>
     )
   }
@@ -153,6 +145,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: 'center',
     alignSelf: 'center',
+  },
+  title:{
+    margin: 10,
+    padding: 10,
+    fontSize: 40,
+    alignSelf: 'center'
   }
 
 })

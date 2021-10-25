@@ -1,27 +1,26 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { Component } from 'react'
 import {
   StyleSheet,
-  TouchableOpacity,
   Text,
   View,
-  Dimensions,
   Platform,
 } from 'react-native'
 import * as Haptics from 'expo-haptics';
-import { Button, Title } from 'react-native-paper'
-import { Icon } from 'react-native-paper/lib/typescript/components/Avatar/Avatar';
+import {  Button, Title } from 'react-native-paper'
 
 interface Icoin {
   heads?: number;
   tails?: number;
   coin?: String;
+  current?: number;
+  //0 = heads | 1 = tails
 }
 class CoinFlip extends Component <Icoin>{
   state = {
-    coin: "please tap on the colored area or button to flip coin",
+    coin: "Press to flip?",
     heads: 0,
-    tails: 0
+    tails: 0,
+    current: -1
   }
 
    getRand(min: number, max:number) {
@@ -32,31 +31,26 @@ class CoinFlip extends Component <Icoin>{
   onPress = () => {
     if(!(Platform.OS === 'web')){
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
-    }    let rand: any = this.getRand(1,10);
-    let value: String = "It is tails!"
+    }    
+    let rand: any = this.getRand(1,10);
+    let value: String = "tails!"
     if(rand <= 5){
-      value =  " It is heads!"
+      value =  "heads!"
       this.setState({
         heads: this.state.heads+1,
-        coin: value
+        coin: value,
+        current: 0
       })
     }else{
     this.setState({
       tails: this.state.tails+1,
-      coin: value
+      coin: value,
+      current: 1
     })
   }
-    // console.log({rand,value})
   }
 
-
-//
-  getResultStyler(){
-    if(this.state.coin == "tails"){
-      return styles.result1;
-    }else return styles.result2;
-  }
-
+  
   GetButton(){
     if(Platform.OS === "web"){
       return(
@@ -67,9 +61,17 @@ class CoinFlip extends Component <Icoin>{
     }
   }
 
+
+  getResultStyler(){
+    if(this.state.current === 1){
+      return styles.result1;
+    }else return styles.result2;
+  }
+
+
  render() {
     return (
-      <View style={[styles.container, this.getResultStyler()]} onTouchStart={this.onPress}>
+      <View style={[styles.container, this.getResultStyler()]} onTouchEnd={this.onPress}>
         <Text style={styles.info}># Heads: {" " + this.state.heads}</Text>
         <Text style={styles.info}># Tails:  { " " + this.state.tails}</Text>
         <View>
@@ -80,9 +82,6 @@ class CoinFlip extends Component <Icoin>{
     )
   }
 }
-
-
-var width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   container: {
@@ -112,7 +111,8 @@ const styles = StyleSheet.create({
   commonResult:{
     padding: 10,
     margin:10,
-    borderRadius: 10
+    borderRadius: 10,
+    fontSize: 40
   }
 
 })
