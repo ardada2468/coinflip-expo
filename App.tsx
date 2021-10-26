@@ -6,6 +6,8 @@ import CoinFlip from './Pages/coinFlip';
 import DiceRoll from './Pages/diceRoll';
 import { AntDesign, FontAwesome5 } from '@expo/vector-icons'; 
 import About from './Pages/about';
+import DoubleDiceRoll from './Pages/DoubleDice';
+import TodoUI from './Pages/Todo';
 class App extends Component{
   Tab = createBottomTabNavigator();
   iconSize = 24;
@@ -13,8 +15,10 @@ class App extends Component{
     return (
       <NavigationContainer>
       <this.Tab.Navigator>
+        <this.Tab.Screen name="Todo" component={TodoUI} options={{tabBarIcon: (tabinfo) => {return(<FontAwesome5 name="clipboard-check" size={this.iconSize} color="black" />)}}}/>
         <this.Tab.Screen name="CoinFlip" component={CoinFlip} options={{tabBarIcon: (tabinfo) => {return(<FontAwesome5 name="coins" size={this.iconSize} color="black" />)}}}/>
-        <this.Tab.Screen name="DiceRoll" component={DiceRoll} options={{tabBarIcon: (tabinfo) => {return(<FontAwesome5 name="dice" size={this.iconSize} color="black" />)}}}/>
+        <this.Tab.Screen name="DiceRoll" component={DiceRoll} options={{tabBarIcon: (tabinfo) => {return(<FontAwesome5 name="dice-d6" size={this.iconSize} color="black" />)}}}/>
+        <this.Tab.Screen name="Double Dice" component={DoubleDiceRoll} options={{tabBarIcon: (tabinfo) => {return(<FontAwesome5 name="dice" size={this.iconSize} color="black" />)}}}/>
         <this.Tab.Screen name="About" component={About} options={{tabBarIcon: (tabinfo) => {return(<AntDesign name="infocirlce" size={this.iconSize} color="black" />)}}}/>
 
       </this.Tab.Navigator>
