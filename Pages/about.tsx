@@ -15,7 +15,7 @@ interface Idice {
 class About extends Component <Idice>{
 
 
-
+//Render
  render() {
     return (
       <View style={[styles.container]}>
