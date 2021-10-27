@@ -1,6 +1,9 @@
 # coinflip-expo
 
 This is a very simple app build with React Native using Typescript
+Visit this link to view web deployment:
+https://todo-list-lemon-two.vercel.app/
+
 
  - It has 3 pages
 	 - Coin Flip
