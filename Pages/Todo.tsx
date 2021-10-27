@@ -4,7 +4,7 @@ import {StyleSheet, Text, View, Platform, Dimensions, ScrollView} from 'react-na
 import * as Haptics from 'expo-haptics';
 import { Button, TextInput, Title,Checkbox  } from 'react-native-paper'
 import { FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
-
+//Todo Page
 interface Itodo {
     allTodos: Todo[],
     currentText: String
@@ -128,7 +128,7 @@ class TodoUI extends Component <Itodo>{
         <View>
           <View style={[styles.commonResult]}>
           </View>
-          <Title style={styles.title}>{"Todo List"}</Title>
+          {/* <Title style={styles.title}>{"Todo List"}</Title> */}
           <ScrollView style={styles.scroll}>
               {this.renderAllTodos()}
           </ScrollView>
