@@ -5,9 +5,11 @@ Visit this link to view web deployment:
 https://todo-list-lemon-two.vercel.app/
 
 
- - It has 3 pages
+ - It has 5 pages	
+	 - Todo Page
 	 - Coin Flip
 	 - Dice Roll
+	 - Double Dice Roll
 	 - About Page
 
 Copyright 2021 Arnav Dadarya
