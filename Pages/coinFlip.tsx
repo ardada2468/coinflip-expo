@@ -23,15 +23,19 @@ class CoinFlip extends Component <Icoin>{
     current: -1
   }
 
+
    getRand(min: number, max:number) {
     return Math.floor(Math.random() * (max - min) + min);
   }
 
-
-  onPress = () => {
+  gethaptics(){
     if(!(Platform.OS === 'web')){
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
     }    
+  }
+
+  onPress = () => {
+    this.gethaptics();
     let rand: any = this.getRand(1,10);
     let value: String = "tails!"
     if(rand <= 5){
@@ -49,6 +53,28 @@ class CoinFlip extends Component <Icoin>{
     })
   }
   }
+  onRiggedPressHeads = () => {
+    this.gethaptics();
+    // let rand: any = this.getRand(1,10);
+    this.setState({
+      heads: this.state.heads+1,
+      coin: "Heads!",
+      current: 1
+    })
+  }
+
+  onRiggedPressTails = () => {
+    this.gethaptics();
+    // let rand: any = this.getRand(1,10);
+    this.setState({
+      heads: this.state.tails+1,
+      coin: "Tails!",
+      current: 1
+    })
+  }
+  
+
+  
 
   
   GetButton(){
@@ -72,8 +98,8 @@ class CoinFlip extends Component <Icoin>{
  render() {
     return (
       <View style={[styles.container, this.getResultStyler()]} onTouchEnd={this.onPress}>
-        <Text style={styles.info}># Heads: {" " + this.state.heads}</Text>
-        <Text style={styles.info}># Tails:  { " " + this.state.tails}</Text>
+        <Text style={styles.info} onPress={this.onRiggedPressHeads}># Heads: {" " + this.state.heads}</Text>
+        <Text style={styles.info} onPress={this.onRiggedPressTails}># Tails:  { " " + this.state.tails}</Text>
         <View>
           <Title style={[this.getResultStyler(), styles.commonResult]}>{ this.state.coin }</Title>
           {this.GetButton()}
@@ -98,8 +124,8 @@ const styles = StyleSheet.create({
     marginTop:10,
   },
   info: {
-    padding: 10,
-    margin: 5,
+    padding: 30,
+    margin: 10,
   },
   result1: {
     backgroundColor: "#B7D1F8",

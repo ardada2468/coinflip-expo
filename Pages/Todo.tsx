@@ -1,9 +1,9 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+// import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { Component } from 'react'
 import {StyleSheet, Text, View, Platform, Dimensions, ScrollView} from 'react-native'
 import * as Haptics from 'expo-haptics';
 import { Button, TextInput, Title,Checkbox  } from 'react-native-paper'
-import { FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
+// import { FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
 //Todo Page
 interface Itodo {
     allTodos: Todo[],
@@ -95,13 +95,8 @@ class TodoUI extends Component <Itodo>{
       else{
           return styles.todoText
       }
-  }
+  }  
 
-
-
-  
-  
-  
 
   //function to display all todos
   renderAllTodos(){

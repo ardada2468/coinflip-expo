@@ -1,4 +1,3 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { Component } from 'react'
 import {StyleSheet, Text, View, Platform} from 'react-native'
 import * as Haptics from 'expo-haptics';

@@ -1,4 +1,3 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { Component } from 'react'
 import {StyleSheet, Text, View, Platform} from 'react-native'
 import * as Haptics from 'expo-haptics';
@@ -30,6 +29,8 @@ class DiceRoll extends Component <Idice>{
     return total/this.x.length;
   }
 
+
+
   onPress = () => {
     if(!(Platform.OS === 'web')){
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
@@ -49,7 +50,6 @@ class DiceRoll extends Component <Idice>{
         avg: this.calculateAvg(),
       }
     )
-    // console.log({rand,value})
   }
 
   getResultStyler(){
