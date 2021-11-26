@@ -2,8 +2,7 @@
 
 This is a very simple app build with React Native using Typescript
 Visit this link to view web deployment:
-https://todo-list-lemon-two.vercel.app/
-
+https://todolist-ardada2468.vercel.app
 
  - It has 5 pages	
 	 - Todo Page
