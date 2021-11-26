@@ -28,14 +28,11 @@ class CoinFlip extends Component <Icoin>{
     return Math.floor(Math.random() * (max - min) + min);
   }
 
-  gethaptics(){
-    if(!(Platform.OS === 'web')){
-      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
-    }    
-  }
 
   onPress = () => {
-    this.gethaptics();
+    if(!(Platform.OS === 'web')){
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
+    }   
     let rand: any = this.getRand(1,10);
     let value: String = "tails!"
     if(rand <= 5){
@@ -54,21 +51,19 @@ class CoinFlip extends Component <Icoin>{
   }
   }
   onRiggedPressHeads = () => {
-    this.gethaptics();
-    // let rand: any = this.getRand(1,10);
+    let value: String = "Heads!"
     this.setState({
       heads: this.state.heads+1,
-      coin: "Heads!",
-      current: 1
+      coin: value,
+      current: 0
     })
   }
 
   onRiggedPressTails = () => {
-    this.gethaptics();
-    // let rand: any = this.getRand(1,10);
+    let value: String = "tails!"
     this.setState({
       heads: this.state.tails+1,
-      coin: "Tails!",
+      coin: value,
       current: 1
     })
   }

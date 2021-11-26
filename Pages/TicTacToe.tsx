@@ -2,50 +2,42 @@ import React, { Component } from 'react'
 import {StyleSheet, Text, View, Platform, Dimensions, ScrollView} from 'react-native'
 import * as Haptics from 'expo-haptics';
 import { Button, TextInput, Title,Checkbox  } from 'react-native-paper'
-interface Itodo {
-    allTodos: Todo[],
-    currentText: String
+interface ITick {
+    Text: String
+    Status: number;
 }
 
- class Todo{
+ class Tic{
     text: String;
-    isDone: Boolean;
+    Status: number;
 
-    constructor (Text:String) {
-        this.text = Text;
-        this.isDone= false;
+    constructor () {
+        this.text = "";
+        this.Status= -1;
     }
      getText(){
          return this.text;
      }
 
-     getIsDone(){
-        return this.isDone;
+     getStatus(){
+        return this.Status;
     }
 
-    //toggle isDone
-    toggleIsDone(){
-        this.isDone = !this.isDone;
+    changeStatus(numb: number){
+        this.Status = numb
     }
 }
 
-class AllTodo{
-    listTodo: Todo[] = [];
-    public AllTodo() {}
+class AllTics{
+   allTacks: Tic[];
 
-    public getTodo(index: number):Todo{
-        return this.listTodo[index]
-    }
+   constructor(){
+       this.allTacks = []
+   }
 
-    public updateList(todos: String){
-        let x = new Todo(todos);
-        this.listTodo.push(x);
-    }
-    
-    //set listTodo to new array that will be passed in
-    public setList(todos: Todo[]){ 
-        this.listTodo = todos;
-    }
+   addTack(Tic: Tic){
+    this.allTacks.push(Tic)
+   }
 }
 
 class TodoUI extends Component <Itodo>{
