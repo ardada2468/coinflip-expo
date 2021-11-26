@@ -50,23 +50,23 @@ class CoinFlip extends Component <Icoin>{
     })
   }
   }
-  onRiggedPressHeads = () => {
-    let value: String = "Heads!"
-    this.setState({
-      heads: this.state.heads+1,
-      coin: value,
-      current: 0
-    })
-  }
+  // onRiggedPressHeads = () => {
+  //   let value: String = "Heads!"
+  //   this.setState({
+  //     heads: this.state.heads+1,
+  //     coin: value,
+  //     current: 0
+  //   })
+  // }
 
-  onRiggedPressTails = () => {
-    let value: String = "tails!"
-    this.setState({
-      heads: this.state.tails+1,
-      coin: value,
-      current: 1
-    })
-  }
+  // onRiggedPressTails = () => {
+  //   let value: String = "tails!"
+  //   this.setState({
+  //     heads: this.state.tails+1,
+  //     coin: value,
+  //     current: 1
+  //   })
+  // }
   
 
   
@@ -93,8 +93,8 @@ class CoinFlip extends Component <Icoin>{
  render() {
     return (
       <View style={[styles.container, this.getResultStyler()]} onTouchEnd={this.onPress}>
-        <Text style={styles.info} onPress={this.onRiggedPressHeads}># Heads: {" " + this.state.heads}</Text>
-        <Text style={styles.info} onPress={this.onRiggedPressTails}># Tails:  { " " + this.state.tails}</Text>
+        <Text style={styles.info}># Heads: {" " + this.state.heads}</Text>
+        <Text style={styles.info}># Tails:  { " " + this.state.tails}</Text>
         <View>
           <Title style={[this.getResultStyler(), styles.commonResult]}>{ this.state.coin }</Title>
           {this.GetButton()}
